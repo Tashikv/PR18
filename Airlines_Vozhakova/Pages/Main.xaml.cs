@@ -27,12 +27,19 @@ namespace Airlines_Vozhakova.Pages
 
         private void Exit(object sender, RoutedEventArgs e)
         {
-
+            MainWindow.mainWindow.Close();
         }
 
         private void Find(object sender, RoutedEventArgs e)
         {
+            string fromText = txtFrom.Text.Trim().ToLower();
+            string toText = txtTo.Text.Trim().ToLower();
 
+            var filteredTickets = MainWindow.mainWindow.ticketClasses
+                .Where(t => t.from.ToLower() == fromText && t.to.ToLower() == toText)
+                .ToList();
+
+            MainWindow.mainWindow.frame.Navigate(new Pages.Ticket(MainWindow.mainWindow, filteredTickets, txtFrom.Text, txtTo.Text));
         }
     }
 }
